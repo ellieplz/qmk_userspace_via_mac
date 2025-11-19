@@ -77,6 +77,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+enum my_keycodes {
+ // apple globe key
+ AP_GLOB = SAFE_RANGE,
+ AC_DESKTOP_SHOW_ALL_WINDOWS = SAFE_RANGE,
+ AL_KEYBOARD_LAYOUT = SAFE_RANGE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case AP_GLOB:
+    host_consumer_send(record->event.pressed ? AC_NEXT_KEYBOARD_LAYOUT_SELECT : 0);
+   return false;
+  }
+
+  return true;
+}
+
 /* encoder; start */
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
